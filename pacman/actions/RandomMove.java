@@ -16,5 +16,8 @@ public class RandomMove extends Action{
 		MOVE[] moves = ctx.getPossibleMoves();
 		return moves[random.nextInt(moves.length)];
 	}
-
+	@Override
+	public String toString() {
+		return "RandomMove:"+super.hashCode();
+	}
 }

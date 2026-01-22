@@ -33,6 +33,7 @@ public class Es_MsGrasa_2026_pacman extends PacmanController{
 	@Override
 	public MOVE getMove(Game game, long timeDue) {
 		Context ctx = new Context(game);
+		ctx.setDebug(true);
 		return this.ai.run(ctx);
 	}
 }
