@@ -60,6 +60,9 @@ public abstract class BehaviorContext {
 		return gameContext.isPillStillAvailable(pillIndex);
 	}
 	//GHOST TRACK METHODS
+	public boolean isGhostFree(GHOST ghost) {
+		return gameContext.getGhostLairTime(ghost) <= 0;
+	}
 	public int getGhostPosition(GHOST ghost) {
 		return gameContext.getGhostCurrentNodeIndex(ghost);
 	}
@@ -72,9 +75,10 @@ public abstract class BehaviorContext {
 			if(ghostDistance < shortestDistance) {
 				shortestDistance = ghostDistance;
 				nearest = new Ghost(ghost, ghostPosition);
+				nearest.setDistance(shortestDistance, metric);
 			}
 		}
-		displayDistance(position, nearest.getPosition(), getGhostColor(nearest.getName()), metric);
+		if(nearest!=null) displayDistance(position, nearest.getPosition(), getGhostColor(nearest.getName()), metric);
 		return nearest;
 	}
 	//PATH METHODS

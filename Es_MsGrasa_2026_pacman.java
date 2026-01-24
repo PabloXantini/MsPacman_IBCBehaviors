@@ -8,6 +8,7 @@ import MsGrasa2026.pacman.Context;
 import MsGrasa2026.pacman.actions.AvoidPowerPill;
 import MsGrasa2026.pacman.actions.RandomMove;
 import MsGrasa2026.pacman.actions.TryEatPill;
+import MsGrasa2026.pacman.rules.NearToGhosts;
 import MsGrasa2026.pacman.rules.SoCloseOfPowerPill;
 import pacman.controllers.PacmanController;
 import pacman.game.Constants.MOVE;
@@ -22,21 +23,30 @@ public class Es_MsGrasa_2026_pacman extends PacmanController{
 	public Es_MsGrasa_2026_pacman() {
 		//FSM
 		this.ai = new Behavior("MsPacman");
+		
 		//RULES
 		Rule nPPill1 = new SoCloseOfPowerPill(30.0d);
+		Rule nGhosts = new NearToGhosts(45.0d);
+		
 		//ACTIONS
 		Action random = new RandomMove();
 		Action tryEat = new TryEatPill();
 		Action avoidPPill = new AvoidPowerPill();
+		
 		//STATES
 		this.greedy = new SimpleState("Greedy", tryEat);
 		this.aware = new SimpleState("Aware", random);
 		this.pursuit = new SimpleState("Pursuit", random);
-		//TRANSITIONS
 		
-		//STRATEGIES
-		greedy.addStrategy(nPPill1, avoidPPill);
 		//SETUP
+		//->GREEDY
+		this.ai.addTransition(greedy, nGhosts, aware);
+		this.ai.addStrategy(greedy, nPPill1, avoidPPill);
+		//->AWARE
+		
+		//->PURSUIT
+		
+		//FINALLY
 		this.ai.start(greedy);
 	}
 	@Override
