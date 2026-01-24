@@ -40,6 +40,10 @@ public class SimpleState extends State {
 		return defaultAction.apply(context);
 	}
 	private MOVE inferFuzzy(BehaviorContext context) {
+		if(strategies.isEmpty()) {
+			defaultAction.notify(context, getName()+"-> Action: "+defaultAction.toString()+" No rules");
+			return defaultAction.apply(context);
+		}
 		EnumMap<MOVE, Double> moveWeights = new EnumMap<MOVE, Double>(MOVE.class);
 		for(Rule rule : strategies.keySet()) {
 			if(rule.evaluate(context)) {
@@ -53,12 +57,16 @@ public class SimpleState extends State {
 				moveWeights.put(move, current);
 			}
 		}
+		if(moveWeights.isEmpty()) {
+			defaultAction.notify(context, getName()+"-> Action: "+defaultAction.toString()+" Not applied rules");
+			return defaultAction.apply(context);
+		}
 		//Defuzzification
 		MOVE bestMove = null;
-		double max = Double.MIN_VALUE;
+		double max = Double.NEGATIVE_INFINITY;
 		for(Entry<MOVE, Double> e : moveWeights.entrySet()) {
 			double v = e.getValue();
-			if(max > v) {
+			if(max < v) {
 				max = v;
 				bestMove = e.getKey();
 			}

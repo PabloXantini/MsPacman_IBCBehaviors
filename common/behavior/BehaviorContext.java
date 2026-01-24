@@ -27,6 +27,13 @@ public abstract class BehaviorContext {
 	public void setDebug(boolean flag) {
 		this.debug = flag;
 	}
+	//GAMEPLAY METHODS
+	public boolean pacmanEaten() {
+		return gameContext.wasPacManEaten();
+	}
+	public boolean powerPillEaten() {
+		return gameContext.wasPowerPillEaten();
+	}
 	//POSITION METHODS
 	public boolean isInJunction(int position) {
 		return gameContext.isJunction(position);
@@ -35,7 +42,7 @@ public abstract class BehaviorContext {
 		return gameContext.getNeighbouringNodes(position);
 	}
 	//BOARD METHODS
-	//POWERPILLS
+	//->POWERPILLS
 	public int[] getPowerPills() {
 		return gameContext.getActivePowerPillsIndices();
 	}
@@ -53,7 +60,7 @@ public abstract class BehaviorContext {
 		displayDistance(position, nearest.getPosition(), Color.WHITE, metric);
 		return nearest;
 	}
-	//PILLS
+	//->PILLS
 	public boolean therePill(int position) {
 		int pillIndex = gameContext.getPillIndex(position);
 		if(pillIndex == -1) return false;
