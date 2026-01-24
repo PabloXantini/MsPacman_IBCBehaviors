@@ -5,19 +5,25 @@ import java.util.Random;
 import MsGrasa2026.common.behavior.Action;
 import MsGrasa2026.common.behavior.BehaviorContext;
 import MsGrasa2026.pacman.Context;
+import MsGrasa2026.pacman.rules.TherePills;
 import pacman.game.Constants.MOVE;
 
-public class RandomMove extends Action{
+public class TryEatPill extends Action{
 	private Random random = new Random();
-	public RandomMove() {}
+	private TherePills r1 = new TherePills();
 	@Override
 	public MOVE apply(BehaviorContext context) {
 		Context ctx = (Context)context;
-		MOVE[] moves = ctx.getPossibleMoves();
+		MOVE[] moves; 
+		if(r1.evaluate(ctx)) {
+			moves = r1.getPossibleMoves();
+			return moves[random.nextInt(moves.length)];
+		}
+		moves = ctx.getPossibleMoves();
 		return moves[random.nextInt(moves.length)];
 	}
 	@Override
 	public String toString() {
-		return "RandomMove:"+super.hashCode();
+		return "Trying eating a Pill:"+hashCode();
 	}
 }

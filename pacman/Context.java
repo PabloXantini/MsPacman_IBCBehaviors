@@ -1,12 +1,16 @@
 package MsGrasa2026.pacman;
 
-import MsGrasa2026.common.BehaviorContext;
 import pacman.game.Constants.MOVE;
+
+import java.awt.Color;
+
+import MsGrasa2026.common.behavior.BehaviorContext;
 import pacman.game.Game;
 
 public class Context extends BehaviorContext{
 	private MOVE lastMove;
 	private int position;
+	private Color color = new Color(255, 222, 33);
 	public Context(Game game) {
 		super(game);
 	}
@@ -15,6 +19,9 @@ public class Context extends BehaviorContext{
 	}
 	public MOVE getLastMove() {
 		return lastMove;
+	}
+	public Color getColor() {
+		return color;
 	}
 	public MOVE[] getPossibleMoves() {
 		return getGame().getPossibleMoves(position, lastMove);

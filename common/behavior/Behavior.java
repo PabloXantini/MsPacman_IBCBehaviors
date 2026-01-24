@@ -1,4 +1,4 @@
-package MsGrasa2026.common;
+package MsGrasa2026.common.behavior;
 
 import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;

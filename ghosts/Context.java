@@ -1,6 +1,6 @@
 package MsGrasa2026.ghosts;
 
-import MsGrasa2026.common.BehaviorContext;
+import MsGrasa2026.common.behavior.BehaviorContext;
 import pacman.game.Game;
 
 public class Context extends BehaviorContext{

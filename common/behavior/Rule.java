@@ -1,4 +1,4 @@
-package MsGrasa2026.common;
+package MsGrasa2026.common.behavior;
 
 public abstract class Rule {
 	public Rule() {

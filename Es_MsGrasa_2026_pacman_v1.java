@@ -17,7 +17,7 @@ public class Es_MsGrasa_2026_pacman_v1 extends PacmanController{
 	private EnumMap<GHOST, Ghost> ghostsInfo = new EnumMap<GHOST, Ghost>(GHOST.class);
 	private Color pacmanColor = new Color(255,222,33);
 	//MOD FLAGS
-	private boolean DEBUG = false;
+	private boolean DEBUG = true;
 	//FSM METHODS
 	private PacmanState currentState = new Greedy(this); //Always starts with greedy mode
 	public Es_MsGrasa_2026_pacman_v1() {
@@ -407,7 +407,7 @@ class Eaten extends PacmanRule {
 	}
 }
 class NearToGhosts extends PacmanRule {
-	private static final int NEAR_DISTANCE = 50;
+	private static final int NEAR_DISTANCE = 60;
 	public NearToGhosts(Es_MsGrasa_2026_pacman_v1 pacman) {
 		super(pacman);
 	}
