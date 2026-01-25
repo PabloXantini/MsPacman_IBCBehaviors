@@ -7,7 +7,7 @@ public class PathNode {
 	private MOVE lastMove;
 	private int nodeOut;
 	private int[] nodes;
-	private double score;
+	private double score = 0.0d;
 	private PathNode[] paths;
 	public PathNode(int nodeOut, MOVE lastMove) {
 		this.nodeOut = nodeOut;

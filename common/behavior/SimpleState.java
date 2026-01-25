@@ -71,6 +71,7 @@ public class SimpleState extends State {
 				bestMove = e.getKey();
 			}
 		}
+		if(context.getDebug()) System.out.println("Move done: "+bestMove.name()+" Result: "+max);
 		return bestMove;
 	}
 }

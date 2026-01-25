@@ -50,14 +50,14 @@ public abstract class BehaviorContext {
 		Pill nearest = null;
 		double shortestDistance = Double.MAX_VALUE;
 		for(int PPill : getPowerPills()) {
-			double distance = gameContext.getDistance(position, PPill, metric);
+			double distance = gameContext.getDistance(position, PPill, lastMove, metric);
 			if(distance < shortestDistance) {
 				shortestDistance = distance;
 				nearest = new Pill(PPill);
 				nearest.setDistance(shortestDistance, metric);
 			}
 		}
-		displayDistance(position, nearest.getPosition(), Color.WHITE, metric);
+		if(nearest!=null) displayDistance(position, nearest.getPosition(), Color.WHITE, metric);
 		return nearest;
 	}
 	//->PILLS
@@ -73,19 +73,24 @@ public abstract class BehaviorContext {
 	public int getGhostPosition(GHOST ghost) {
 		return gameContext.getGhostCurrentNodeIndex(ghost);
 	}
-	public Ghost getNearestGhost(int position, MOVE lastMove, GHOST[] ghosts, DM metric) {
+	public MOVE getGhostLastMove(GHOST ghost) {
+		return gameContext.getGhostLastMoveMade(ghost);
+	}
+	public Ghost getNearestGhost(int position, GHOST[] ghosts, DM metric) {
 		Ghost nearest = null;
 		double shortestDistance = Double.MAX_VALUE;
 		for(GHOST ghost : ghosts) {
 			int ghostPosition = getGhostPosition(ghost);
-			double ghostDistance = gameContext.getDistance(position, ghostPosition, lastMove, metric);
+			MOVE gmove = getGhostLastMove(ghost);
+			double ghostDistance = gameContext.getDistance(ghostPosition, position, gmove, metric);
 			if(ghostDistance < shortestDistance) {
 				shortestDistance = ghostDistance;
 				nearest = new Ghost(ghost, ghostPosition);
 				nearest.setDistance(shortestDistance, metric);
+				nearest.setLastMove(gmove);
 			}
 		}
-		if(nearest!=null) displayDistance(position, nearest.getPosition(), getGhostColor(nearest.getName()), metric);
+		if(nearest!=null) displayDistance(nearest.getPosition(), position, nearest.getLastMove(), getGhostColor(nearest.getName()), metric);
 		return nearest;
 	}
 	//PATH METHODS
@@ -161,8 +166,8 @@ public abstract class BehaviorContext {
 		}
 	}
 	public void displayDistance(int from, int to, Color color, DM metric) {
-		if(debug) {
-			switch (metric) {
+		if(!debug) return;
+		switch (metric) {
 			case EUCLID:
 				GameView.addLines(gameContext, color, from, to);
 				break;
@@ -172,7 +177,20 @@ public abstract class BehaviorContext {
 				break;
 			default:
 				break;
-			}
+		}		
+	}
+	public void displayDistance(int from, int to, MOVE lastMove, Color color, DM metric) {
+		if(!debug) return;
+		switch (metric) {
+			case EUCLID:
+				GameView.addLines(gameContext, color, from, to);
+				break;
+			case PATH:
+				int[] path = gameContext.getShortestPath(from, to, lastMove);
+				GameView.addPoints(gameContext, color, path);
+				break;
+			default:
+				break;
 		}
 	}
 	public void addPoints(Color color, int... positions) {

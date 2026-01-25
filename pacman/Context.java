@@ -1,5 +1,6 @@
 package MsGrasa2026.pacman;
 
+import pacman.game.Constants.DM;
 import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;
 
@@ -7,6 +8,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import MsGrasa2026.common.behavior.BehaviorContext;
+import MsGrasa2026.common.locations.Ghost;
 import pacman.game.Game;
 
 public class Context extends BehaviorContext{
@@ -25,12 +27,8 @@ public class Context extends BehaviorContext{
 	public Color getColor() {
 		return color;
 	}
-	private GHOST[] toArray(ArrayList<GHOST> ghosts) {
-		GHOST[] g = new GHOST[ghosts.size()];
-		for (int i = 0; i < g.length; i++) {
-			g[i] = ghosts.get(i);
-		}
-		return g;
+	public boolean isGhostVulnerable(GHOST ghost) {
+		return getGame().getGhostEdibleTime(ghost) > 15;
 	}
 	public GHOST[] getFreeGhosts() {
 		ArrayList<GHOST> tmp = new ArrayList<GHOST>();
@@ -39,18 +37,61 @@ public class Context extends BehaviorContext{
 				tmp.add(ghost);
 			}
 		}
-		GHOST[] freeGhosts = toArray(tmp);
-		return freeGhosts;
+		GHOST[] freeGhosts = new GHOST[tmp.size()];
+		return tmp.toArray(freeGhosts);
+	}
+	public GHOST[] getMenacingGhosts() {
+		ArrayList<GHOST> tmp = new ArrayList<GHOST>();
+		for(GHOST ghost : GHOST.values()) {
+			if(isGhostFree(ghost) && !isGhostVulnerable(ghost)) {
+				tmp.add(ghost);
+			}
+		}
+		GHOST[] freeGhosts = new GHOST[tmp.size()];
+		return tmp.toArray(freeGhosts);
 	}
 	public GHOST[] getVulnerableGhosts() {
 		ArrayList<GHOST> tmp = new ArrayList<GHOST>();
 		for(GHOST ghost : GHOST.values()) {
-			if(getGame().getGhostEdibleTime(ghost) > 30 && isGhostFree(ghost)) {
+			if(isGhostVulnerable(ghost) && isGhostFree(ghost)) {
 				tmp.add(ghost);
 			}
 		}
-		GHOST[] vulnerableGhosts = toArray(tmp);
-		return vulnerableGhosts;
+		GHOST[] vulnerableGhosts = new GHOST[tmp.size()];
+		return tmp.toArray(vulnerableGhosts);
+	}
+	public Ghost getNearestGhostToPursue(int position, MOVE lastMove, GHOST[] ghosts, DM metric) {
+		Ghost nearest = null;
+		double shortestDistance = Double.MAX_VALUE;
+		for(GHOST ghost : ghosts) {
+			int ghostPosition = getGhostPosition(ghost);
+			double ghostDistance = getGame().getDistance(position, ghostPosition, lastMove, metric);
+			if(ghostDistance < shortestDistance) {
+				shortestDistance = ghostDistance;
+				nearest = new Ghost(ghost, ghostPosition);
+				nearest.setDistance(shortestDistance, metric);
+			}
+		}
+		if(nearest!=null) displayDistance(position, nearest.getPosition(), lastMove, getColor(), metric);
+		return nearest;
+	}
+	public Ghost[] getNearGhostsByDistanceAway(int position, GHOST[] ghosts, DM metric, double distance) {
+		ArrayList<Ghost> g = new ArrayList<Ghost>();
+		int ghostc = 0;
+		for(GHOST ghost : ghosts) {
+			int ghostPosition = getGhostPosition(ghost);
+			MOVE ghostMove = getGame().getGhostLastMoveMade(ghost);
+			double ghostDistance = getGame().getDistance(ghostPosition, position, ghostMove, metric);
+			if(ghostDistance < distance) {
+				Ghost nearghost = new Ghost(ghost, ghostPosition);
+				nearghost.setDistance(ghostDistance, metric);
+				nearghost.setLastMove(ghostMove);
+				g.add(nearghost);
+				ghostc++;
+			}
+		}
+		Ghost[] result = new Ghost[ghostc];
+		return g.toArray(result);
 	}
 	public MOVE[] getPossibleMoves() {
 		return getGame().getPossibleMoves(position, lastMove);

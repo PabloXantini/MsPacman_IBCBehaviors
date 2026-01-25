@@ -1,28 +1,29 @@
 package MsGrasa2026.common.path;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 import MsGrasa2026.common.behavior.BehaviorContext;
-import pacman.game.Game;
 
 public class OutComparator extends GeneralPathVisitor {
-	private final Set<Integer> outs = new HashSet<Integer>();
+	private final ArrayList<PathNode> paths = new ArrayList<PathNode>();
 	public OutComparator(BehaviorContext context) {
 		super(context);
 	}
-	public Set<Integer> getOuts(){
-		return outs;
+	public ArrayList<PathNode> getPaths(){
+		return paths;
 	}
-	public void compute(PathNode node) {
-		outs.clear();
-		node.accept(this);
+	public void reset() {
+		paths.clear();
 	}
 	@Override
 	public void visit(PathNode node) {
-		outs.add(node.getOut());
+		double score = node.getScore();
+		score+=node.getSteps();
+		node.setScore(score);
+		paths.add(node);
 		if(node.getPaths()==null) return;
 		for (PathNode path : node.getPaths()) {
+			path.setScore(node.getScore());
 			path.accept(this);
 		}
 	}
