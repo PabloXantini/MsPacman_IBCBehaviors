@@ -5,7 +5,7 @@ public abstract class ProxRule extends Rule {
 	public ProxRule(double threshold) {
 		this.threshold = threshold;
 	}
-	public double getThreshod() {
+	public double getThreshold() {
 		return threshold;
 	}
 	public void setThreshold(double newValue) {

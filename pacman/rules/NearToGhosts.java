@@ -1,16 +1,21 @@
 package MsGrasa2026.pacman.rules;
 
 import MsGrasa2026.common.behavior.BehaviorContext;
-import MsGrasa2026.common.behavior.Rule;
+import MsGrasa2026.common.behavior.ProxRule;
 import MsGrasa2026.common.locations.Ghost;
+import MsGrasa2026.common.utils.NFunction;
 import MsGrasa2026.pacman.Context;
 import pacman.game.Constants.DM;
 import pacman.game.Constants.MOVE;
 
-public class NearToGhosts extends Rule{
-	private double threshold = 0.0d;
+public class NearToGhosts extends ProxRule{
 	public NearToGhosts(double threshold) {
-		this.threshold = threshold;
+		super(threshold);
+	}
+	private void fuzzify(double distance) {
+		double r = 1.0d - distance / getThreshold();
+		//System.out.println(r);
+		setWeight(NFunction.pPolyN(r, 2));
 	}
 	@Override
 	public boolean evaluate(BehaviorContext context) {
@@ -20,12 +25,8 @@ public class NearToGhosts extends Rule{
 		Ghost nGhost = ctx.getNearestGhost(PcPos, ctx.getFreeGhosts(), DM.PATH);
 		if(nGhost==null) return false;
 		double d = nGhost.getDistance(DM.PATH);
-		if(d < threshold*0.2d) setWeight(1.0);
-		else if(d < threshold*0.4d) setWeight(0.6);
-		else if(d < threshold*0.6d) setWeight(0.3);
-		else if(d < threshold*0.8d) setWeight(0.15);
-		else if(d < threshold) setWeight(0.06);
-		if(d < threshold) return true;
+		fuzzify(d);
+		if(d < getThreshold()) return true;
 		return false;
 	}
 	@Override

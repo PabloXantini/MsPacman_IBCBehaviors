@@ -55,4 +55,7 @@ public class PathNode {
 	public void accept(PathVisitor visitor) {
 		visitor.visit(this);
 	}
+	public void compare(ComparatorPathVisitor visitor, PathNode node) {
+		visitor.compare(this, node);
+	}
 }

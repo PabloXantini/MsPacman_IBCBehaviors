@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import MsGrasa2026.common.behavior.BehaviorContext;
 
-public class OutComparator extends GeneralPathVisitor {
+public class OutComparator extends ComparatorPathVisitor {
 	private final ArrayList<PathNode> paths = new ArrayList<PathNode>();
 	public OutComparator(BehaviorContext context) {
 		super(context);
@@ -26,5 +26,8 @@ public class OutComparator extends GeneralPathVisitor {
 			path.setScore(node.getScore());
 			path.accept(this);
 		}
+	}
+	@Override
+	public void compare(PathNode node1, PathNode node2) {
 	}
 }

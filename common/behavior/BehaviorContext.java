@@ -152,8 +152,14 @@ public abstract class BehaviorContext {
 	public MOVE moveAwayFromTarget(int position, int target, MOVE lastMove, DM metric) {
 		return gameContext.getNextMoveAwayFromTarget(position, target, lastMove, metric);
 	}
+	public MOVE moveAwayFromTarget(int position, int target, DM metric) {
+		return gameContext.getNextMoveAwayFromTarget(position, target, metric);
+	}
 	public MOVE moveTowardsTarget(int position, int target, MOVE lastMove, DM metric) {
 		return gameContext.getNextMoveTowardsTarget(position, target, lastMove, metric);
+	}
+	public MOVE moveTowardsTarget(int position, int target, DM metric) {
+		return gameContext.getNextMoveTowardsTarget(position, target, metric);
 	}
 	//DRAW METHODS
 	public Color getGhostColor(GHOST ghost) {

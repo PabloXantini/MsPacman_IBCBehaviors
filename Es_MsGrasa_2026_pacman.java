@@ -22,7 +22,7 @@ import pacman.game.Constants.MOVE;
 import pacman.game.Game;
 
 public class Es_MsGrasa_2026_pacman extends PacmanController{
-	private static final boolean DEBUG_MODE = false; 
+	private boolean DEBUG_MODE = true; 
 	private Behavior ai;
 	private SimpleState greedy;
 	private SimpleState aware;
@@ -33,14 +33,14 @@ public class Es_MsGrasa_2026_pacman extends PacmanController{
 		
 		//RULES
 		Rule nPPill1 = new SoCloseOfPowerPill(30.0d);
-		Rule aGhosts1 = new AwayFromGhosts(65.0d);
-		Rule nGhosts1 = new NearToGhosts(65.0d);
+		Rule aGhosts1 = new AwayFromGhosts(60.0d);
+		Rule nGhosts1 = new NearToGhosts(60.0d);
 		Rule nGhosts2 = new NearToGhosts(100.0d);
-		Rule nGhosts3 = new NearToGhosts(80.0d); 
+		Rule nGhosts3 = new NearToGhosts(100.0d); 
 		Rule nGhosts4 = new NearToGhosts(30.0d);
 		Rule pEaten = new Eaten();
 		Rule ppEaten = new PowerPillEaten();
-		Rule novghosts = new NoVulnerableGhosts();
+		Rule noVGhosts = new NoVulnerableGhosts();
 		//ACTIONS
 		Action tryEat = new TryEatPill();
 		Action avoidPPill = new AvoidPowerPill();
@@ -52,8 +52,8 @@ public class Es_MsGrasa_2026_pacman extends PacmanController{
 		this.pursuit = new SimpleState("Pursuit", tryEat);
 		
 		//SETUP
-		aware.setInferenceMode(IF.FUZZY);
-		pursuit.setInferenceMode(IF.FUZZY);
+		this.aware.setInferenceMode(IF.FUZZY);
+		this.pursuit.setInferenceMode(IF.FUZZY);
 		//->GREEDY
 		this.ai.addTransition(greedy, nGhosts1, aware);
 		this.ai.addStrategy(greedy, nPPill1, avoidPPill);
@@ -64,9 +64,9 @@ public class Es_MsGrasa_2026_pacman extends PacmanController{
 		this.ai.addStrategy(aware, nGhosts2, runAway);
 		//->PURSUIT
 		this.ai.addTransition(pursuit, pEaten, greedy);
-		this.ai.addTransition(pursuit, novghosts, aware);
+		this.ai.addTransition(pursuit, noVGhosts, aware);
 		this.ai.addStrategy(pursuit, nGhosts3, chase);
-		this.ai.addStrategy(pursuit, nGhosts4, runAway);
+		//this.ai.addStrategy(pursuit, nGhosts4, runAway);
 		this.ai.addStrategy(pursuit, nPPill1, avoidPPill);
 		//FINALLY
 		this.ai.start(greedy);
@@ -76,5 +76,9 @@ public class Es_MsGrasa_2026_pacman extends PacmanController{
 		Context ctx = new Context(game);
 		ctx.setDebug(DEBUG_MODE);
 		return this.ai.run(ctx);
+	}
+	public Es_MsGrasa_2026_pacman enableDebug(boolean flag) {
+		this.DEBUG_MODE = flag;
+		return this;
 	}
 }
