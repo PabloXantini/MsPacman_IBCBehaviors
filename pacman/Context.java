@@ -27,6 +27,9 @@ public class Context extends BehaviorContext{
 	public Color getColor() {
 		return color;
 	}
+	public boolean pillEaten() {
+		return getGame().wasPillEaten();
+	}
 	public boolean isGhostVulnerable(GHOST ghost) {
 		return getGame().getGhostEdibleTime(ghost) > 15;
 	}

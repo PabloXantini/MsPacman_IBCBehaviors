@@ -28,6 +28,6 @@ public class AwayFromGhosts extends ProxRule {
 	}
 	@Override
 	public String toString() {
-		return "Near to Ghosts: "+hashCode();
+		return "Away from Ghosts: "+hashCode();
 	}
 }
