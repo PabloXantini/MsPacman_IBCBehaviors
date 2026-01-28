@@ -1,6 +1,6 @@
-package MsGrasa2026.ghosts.actions;
+package MsGrasaTeam2026.ghosts.actions;
 
-import MsGrasa2026.common.behavior.Action;
+import MsGrasaTeam2026.common.behavior.Action;
 import pacman.game.Constants.GHOST;
 
 public abstract class GhostAction extends Action {

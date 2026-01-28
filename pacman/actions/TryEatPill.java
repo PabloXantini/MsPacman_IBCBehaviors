@@ -1,11 +1,11 @@
-package MsGrasa2026.pacman.actions;
+package MsGrasaTeam2026.pacman.actions;
 
 import java.util.Random;
 
-import MsGrasa2026.common.behavior.Action;
-import MsGrasa2026.common.behavior.BehaviorContext;
-import MsGrasa2026.pacman.Context;
-import MsGrasa2026.pacman.rules.TherePills;
+import MsGrasaTeam2026.common.behavior.Action;
+import MsGrasaTeam2026.common.behavior.BehaviorContext;
+import MsGrasaTeam2026.pacman.Context;
+import MsGrasaTeam2026.pacman.rules.TherePills;
 import pacman.game.Constants.MOVE;
 
 public class TryEatPill extends Action{

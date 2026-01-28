@@ -1,4 +1,4 @@
-package MsGrasa2026.common.behavior;
+package MsGrasaTeam2026.common.behavior;
 
 public abstract class Rule {
 	private double weight = 1.0d;

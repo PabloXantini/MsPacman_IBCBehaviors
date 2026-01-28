@@ -1,4 +1,4 @@
-package MsGrasa2026.pacman;
+package MsGrasaTeam2026.pacman;
 
 import pacman.game.Constants.DM;
 import pacman.game.Constants.GHOST;
@@ -7,8 +7,8 @@ import pacman.game.Constants.MOVE;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import MsGrasa2026.common.behavior.BehaviorContext;
-import MsGrasa2026.common.locations.Ghost;
+import MsGrasaTeam2026.common.behavior.BehaviorContext;
+import MsGrasaTeam2026.common.locations.Ghost;
 import pacman.game.Game;
 
 public class Context extends BehaviorContext{

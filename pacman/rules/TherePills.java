@@ -1,10 +1,10 @@
-package MsGrasa2026.pacman.rules;
+package MsGrasaTeam2026.pacman.rules;
 
-import MsGrasa2026.common.behavior.BehaviorContext;
-import MsGrasa2026.common.behavior.Rule;
-import MsGrasa2026.common.path.PathNode;
-import MsGrasa2026.common.path.PillEvaluator;
-import MsGrasa2026.pacman.Context;
+import MsGrasaTeam2026.common.behavior.BehaviorContext;
+import MsGrasaTeam2026.common.behavior.Rule;
+import MsGrasaTeam2026.common.path.PathNode;
+import MsGrasaTeam2026.common.path.PillEvaluator;
+import MsGrasaTeam2026.pacman.Context;
 import pacman.game.Constants.MOVE;
 
 public class TherePills extends Rule {

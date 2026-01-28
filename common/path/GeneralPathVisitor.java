@@ -1,6 +1,6 @@
-package MsGrasa2026.common.path;
+package MsGrasaTeam2026.common.path;
 
-import MsGrasa2026.common.behavior.BehaviorContext;
+import MsGrasaTeam2026.common.behavior.BehaviorContext;
 
 public abstract class GeneralPathVisitor implements PathVisitor {
 	private final BehaviorContext context;

@@ -1,11 +1,11 @@
-package MsGrasa2026.common.behavior;
+package MsGrasaTeam2026.common.behavior;
 
 import java.awt.Color;
 import java.util.ArrayList;
 
-import MsGrasa2026.common.locations.Ghost;
-import MsGrasa2026.common.locations.Pill;
-import MsGrasa2026.common.path.PathNode;
+import MsGrasaTeam2026.common.locations.Ghost;
+import MsGrasaTeam2026.common.locations.Pill;
+import MsGrasaTeam2026.common.path.PathNode;
 import pacman.game.Game;
 import pacman.game.GameView;
 import pacman.game.Constants.DM;

@@ -1,8 +1,8 @@
-package MsGrasa2026.pacman.rules;
+package MsGrasaTeam2026.pacman.rules;
 
-import MsGrasa2026.common.behavior.BehaviorContext;
-import MsGrasa2026.common.behavior.Rule;
-import MsGrasa2026.pacman.Context;
+import MsGrasaTeam2026.common.behavior.BehaviorContext;
+import MsGrasaTeam2026.common.behavior.Rule;
+import MsGrasaTeam2026.pacman.Context;
 
 public class Hunger extends Rule{
 	private int hungerTicks = 0;

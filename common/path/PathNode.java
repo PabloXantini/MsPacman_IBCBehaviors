@@ -1,4 +1,4 @@
-package MsGrasa2026.common.path;
+package MsGrasaTeam2026.common.path;
 
 import pacman.game.Constants.MOVE;
 

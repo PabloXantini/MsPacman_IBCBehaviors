@@ -1,4 +1,4 @@
-package MsGrasa2026.common.behavior;
+package MsGrasaTeam2026.common.behavior;
 
 public abstract class ProxRule extends Rule {
 	private double threshold;

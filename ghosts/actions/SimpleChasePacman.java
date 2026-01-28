@@ -1,13 +1,13 @@
-package MsGrasa2026.ghosts.actions;
+package MsGrasaTeam2026.ghosts.actions;
 
-import MsGrasa2026.common.behavior.BehaviorContext;
-import MsGrasa2026.pacman.Context;
+import MsGrasaTeam2026.common.behavior.BehaviorContext;
+import MsGrasaTeam2026.pacman.Context;
 import pacman.game.Constants.DM;
 import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;
 
-public class ChasePacman extends GhostAction {
-	public ChasePacman(GHOST ghost) {
+public class SimpleChasePacman extends GhostAction {
+	public SimpleChasePacman(GHOST ghost) {
 		super(ghost);
 	}
 	@Override

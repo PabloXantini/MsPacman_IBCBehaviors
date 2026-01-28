@@ -1,9 +1,9 @@
-package MsGrasa2026.pacman.actions;
+package MsGrasaTeam2026.pacman.actions;
 
-import MsGrasa2026.common.behavior.Action;
-import MsGrasa2026.common.behavior.BehaviorContext;
-import MsGrasa2026.common.locations.Pill;
-import MsGrasa2026.pacman.Context;
+import MsGrasaTeam2026.common.behavior.Action;
+import MsGrasaTeam2026.common.behavior.BehaviorContext;
+import MsGrasaTeam2026.common.locations.Pill;
+import MsGrasaTeam2026.pacman.Context;
 import pacman.game.Constants.DM;
 import pacman.game.Constants.MOVE;
 

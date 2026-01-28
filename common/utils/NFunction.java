@@ -1,4 +1,4 @@
-package MsGrasa2026.common.utils;
+package MsGrasaTeam2026.common.utils;
 
 public class NFunction {
 	public static double pPolyN(double input, double ease) {

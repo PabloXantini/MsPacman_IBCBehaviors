@@ -1,8 +1,8 @@
-package MsGrasa2026.common.path;
+package MsGrasaTeam2026.common.path;
 
 import java.util.ArrayList;
 
-import MsGrasa2026.common.behavior.BehaviorContext;
+import MsGrasaTeam2026.common.behavior.BehaviorContext;
 
 public class OutComparator extends ComparatorPathVisitor {
 	private final ArrayList<PathNode> paths = new ArrayList<PathNode>();

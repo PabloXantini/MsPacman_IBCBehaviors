@@ -1,4 +1,4 @@
-package MsGrasa2026.common.locations;
+package MsGrasaTeam2026.common.locations;
 
 import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;

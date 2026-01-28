@@ -1,15 +1,15 @@
-package MsGrasa2026.pacman.actions;
+package MsGrasaTeam2026.pacman.actions;
 
 import java.awt.Color;
 import java.util.EnumMap;
 import java.util.Map.Entry;
 
-import MsGrasa2026.common.behavior.Action;
-import MsGrasa2026.common.behavior.BehaviorContext;
-import MsGrasa2026.common.locations.Ghost;
-import MsGrasa2026.common.path.OutComparator;
-import MsGrasa2026.common.path.PathNode;
-import MsGrasa2026.pacman.Context;
+import MsGrasaTeam2026.common.behavior.Action;
+import MsGrasaTeam2026.common.behavior.BehaviorContext;
+import MsGrasaTeam2026.common.locations.Ghost;
+import MsGrasaTeam2026.common.path.OutComparator;
+import MsGrasaTeam2026.common.path.PathNode;
+import MsGrasaTeam2026.pacman.Context;
 import pacman.game.Constants.DM;
 import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;

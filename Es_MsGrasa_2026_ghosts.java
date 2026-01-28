@@ -1,26 +1,21 @@
-package MsGrasa2026;
+package MsGrasaTeam2026;
 
 import java.util.EnumMap;
 
-import MsGrasa2026.common.behavior.Action;
-import MsGrasa2026.common.behavior.Behavior;
-import MsGrasa2026.common.behavior.IF;
-import MsGrasa2026.common.behavior.Rule;
-import MsGrasa2026.common.behavior.SimpleState;
-import MsGrasa2026.ghosts.actions.ChasePacman;
-import MsGrasa2026.pacman.Context;
-import MsGrasa2026.pacman.actions.AvoidPowerPill;
-import MsGrasa2026.pacman.actions.ChaseGhost;
-import MsGrasa2026.pacman.actions.GoToPill;
-import MsGrasa2026.pacman.actions.RunAway;
-import MsGrasa2026.pacman.actions.TryEatPill;
-import MsGrasa2026.pacman.rules.AwayFromGhosts;
-import MsGrasa2026.pacman.rules.Eaten;
-import MsGrasa2026.pacman.rules.Hunger;
-import MsGrasa2026.pacman.rules.NearToGhosts;
-import MsGrasa2026.pacman.rules.NoVulnerableGhosts;
-import MsGrasa2026.pacman.rules.PowerPillEaten;
-import MsGrasa2026.pacman.rules.SoCloseOfPowerPill;
+import MsGrasaTeam2026.common.behavior.Action;
+import MsGrasaTeam2026.common.behavior.Behavior;
+import MsGrasaTeam2026.common.behavior.IF;
+import MsGrasaTeam2026.common.behavior.Rule;
+import MsGrasaTeam2026.common.behavior.SimpleState;
+import MsGrasaTeam2026.ghosts.actions.BlockingChase;
+import MsGrasaTeam2026.ghosts.actions.NervousChase;
+import MsGrasaTeam2026.ghosts.actions.RunAway;
+import MsGrasaTeam2026.ghosts.actions.SimpleChasePacman;
+import MsGrasaTeam2026.ghosts.actions.StayedChase;
+import MsGrasaTeam2026.ghosts.rules.Menacing;
+import MsGrasaTeam2026.pacman.Context;
+import MsGrasaTeam2026.pacman.rules.Eaten;
+import MsGrasaTeam2026.pacman.rules.SoCloseOfPowerPill;
 import pacman.controllers.GhostController;
 import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;
@@ -52,52 +47,38 @@ public class Es_MsGrasa_2026_ghosts extends GhostController {
 			Behavior ghostAI = new Behavior(ghost);
 			
 			//RULES
-			Rule nPPill1 = new SoCloseOfPowerPill(30.0d);
-			Rule aGhosts1 = new AwayFromGhosts(60.0d);
-			
-			Rule aGhosts2 = new AwayFromGhosts(60.0d);
-			Rule nGhosts1 = new NearToGhosts(60.0d);
-			
-			Rule nGhosts2 = new NearToGhosts(100.0d);
-			Rule nGhosts3 = new NearToGhosts(100.0d); 
-			Rule nGhosts4 = new NearToGhosts(80.0d);
-			
+			Rule nPPill = new SoCloseOfPowerPill(30.0d);
 			Rule pcEaten = new Eaten();
-			Rule ppEaten = new PowerPillEaten();
-			Rule noVGhosts = new NoVulnerableGhosts();
-			
-			Rule hunger1 = new Hunger(30, 3);
+			Rule menacing = new Menacing(ghost);
 			//ACTIONS
-			Action chase = new ChasePacman(ghost);
-			Action tryEat = new TryEatPill();
-			Action gotoPill = new GoToPill();
-			Action avoidPPill = new AvoidPowerPill();
-			Action runAway = new RunAway(45.0d);
-			//Action chase = new ChaseGhost();
+			Action chase = null;
+			Action runAway = new RunAway(ghost);
 			//STATES
+			switch(ghost) {
+				case BLINKY: 
+					chase = new SimpleChasePacman(ghost);
+					break;
+				case INKY:
+					chase = new StayedChase(ghost);
+					break;
+				case PINKY:
+					chase = new BlockingChase(ghost);
+					break;
+				case SUE:
+					chase = new NervousChase(ghost, 30);
+					break;
+			}
 			SimpleState pursuit = new SimpleState("Pursuit", chase);
+			SimpleState scared = new SimpleState("Scared", runAway);
 			///this.aware = new SimpleState("Aware", tryEat);
 			///this.pursuit = new SimpleState("Pursuit", tryEat);
 			
 			//SETUP
-			///this.aware.setInferenceMode(IF.FUZZY);
-			///this.pursuit.setInferenceMode(IF.FUZZY);
 			//->CHASE
-			///ghostAI.addTransition(chase, nGhosts1, aware);
-			///this.ai.addStrategy(greedy, nPPill1, avoidPPill);
-			///this.ai.addStrategy(greedy, hunger1, gotoPill);
-			//->AWARE
-			///this.ai.addTransition(aware, pcEaten, greedy);
-			///this.ai.addTransition(aware, ppEaten, pursuit);
-			///this.ai.addTransition(aware, aGhosts1, greedy);
-			///this.ai.addStrategy(aware, nGhosts2, runAway);
-			///this.ai.addStrategy(aware, aGhosts2, gotoPill);
-			//->PURSUIT
-			///this.ai.addTransition(pursuit, pcEaten, greedy);
-			///this.ai.addTransition(pursuit, noVGhosts, aware);
-			///this.ai.addStrategy(pursuit, nGhosts3, chase);
-			///this.ai.addStrategy(pursuit, nGhosts4, runAway);
-			///this.ai.addStrategy(pursuit, nPPill1, avoidPPill);
+			ghostAI.addTransition(pursuit, nPPill, scared);
+			//->SCARED
+			ghostAI.addTransition(scared, pcEaten, pursuit);
+			ghostAI.addTransition(scared, menacing, pursuit);
 			//FINALLY
 			ghostAI.start(pursuit);
 			
