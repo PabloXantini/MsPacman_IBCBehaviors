@@ -10,10 +10,6 @@ public class ChasePacman extends GhostAction {
 	public ChasePacman(GHOST ghost) {
 		super(ghost);
 	}
-	private MOVE applyChaseMethodByGhost(GHOST ghost) {
-		
-		return MOVE.NEUTRAL;
-	}
 	@Override
 	public MOVE apply(BehaviorContext context) {
 		Context ctx = (Context)context;
@@ -24,5 +20,9 @@ public class ChasePacman extends GhostAction {
 			return ctx.moveTowardsTarget(GPos, PcPos, LastMove, DM.EUCLID);
 		}
 		return LastMove;
+	}
+	@Override
+	public String toString() {
+		return "Chasing MsPacman -> "+ghost.name()+": "+hashCode();
 	}
 }
